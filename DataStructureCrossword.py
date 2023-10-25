@@ -52,13 +52,15 @@ class Word:
         self.word_name = word_name
         self.grid = grid
         #TODO Initialise word_cells as list of CharCells in given direction
-        if start_x == end_x and end_y >= end_x: #Horizontal word
+        if start_x == end_x and end_y >= start_y: #Horizontal word
             for y in range(start_y, end_y + 1):
                 cell = grid.get_cell(start_x, y)
+                cell.set_letter("□")
                 self.word_cells.append(cell)  
         elif start_y == end_y and end_x >= start_x: #Vertical word
             for x in range(start_x, end_x + 1):
                 cell = grid.get_cell(x, start_y)
+                cell.set_letter("□")
                 self.word_cells.append(cell)
         else: #Invalid word
             return False
@@ -81,8 +83,15 @@ if __name__ == "__main__":
     crossword_grid = Grid()
 
     #Assign a word to the grid
-    word = Word(2, 1, 2, 5, "Kitchen Utensil", crossword_grid)
-    word.set_solution("spoon")
+    word1 = Word(2, 1, 2, 5, "Clue", crossword_grid)
+    word2 = Word(2, 1, 6, 1, "Clue", crossword_grid)
+    word3 = Word(4, 4, 7, 4, "Clue", crossword_grid)
+    word4 = Word(6, 1, 6, 7, "Clue", crossword_grid)
+    word5 = Word(8, 7, 8, 14, "Clue", crossword_grid)
+    word6 = Word(9, 3, 9, 7, "Clue", crossword_grid)
+    word7 = Word(8, 7, 14, 7, "Clue", crossword_grid)
+    word8 = Word(14, 1, 14, 6, "Clue", crossword_grid)
+    #word.solve("spoon")
 
     # Print the grid
     print(crossword_grid)
