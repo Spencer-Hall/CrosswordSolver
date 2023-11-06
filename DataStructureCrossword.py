@@ -1,3 +1,5 @@
+# DataStructureCrossword.py
+
 class CharCell:
     def __init__(self, x, y, isSolved=False, letter=None):
         self.x = x
@@ -25,7 +27,11 @@ class Grid:
     def __init__(self):
         self.rows = 15
         self.columns = 15
+        self.wordList = []
         self.grid = [[CharCell(x, y) for y in range(self.columns)] for x in range(self.rows)]
+
+    def addWord(self, word):
+        self.wordList.append(word)
 
     def get_cell(self, x, y):
         if 0 <= x < self.rows and 0 <= y < self.columns:
@@ -51,17 +57,22 @@ class Word:
         self.solution = solution
         self.word_name = word_name
         self.grid = grid
-        #TODO Initialise word_cells as list of CharCells in given direction
+        self.grid.addWord(self)
+        self.orientation = None
+        self.length = 0
+        
         if start_x == end_x and end_y >= start_y: #Horizontal word
+            self.orientation = 0
             for y in range(start_y, end_y + 1):
                 cell = grid.get_cell(start_x, y)
-                cell.set_letter("□")
-                self.word_cells.append(cell)  
+                self.word_cells.append(cell)
+                self.length +=1  
         elif start_y == end_y and end_x >= start_x: #Vertical word
+            self.orientation = 1
             for x in range(start_x, end_x + 1):
                 cell = grid.get_cell(x, start_y)
-                cell.set_letter("□")
                 self.word_cells.append(cell)
+                self.length +=1
         else: #Invalid word
             return False
 
