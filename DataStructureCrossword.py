@@ -1,5 +1,8 @@
 # DataStructureCrossword.py
 
+
+#CharCell represents an individual cell in the crossword grid
+# Given co-ordinates x,y a boolean isSolved and a letter initialised to None
 class CharCell:
     def __init__(self, x, y, isSolved=False, letter=None):
         self.x = x
@@ -23,11 +26,15 @@ class CharCell:
     def __str__(self):
         return f"({self.x}, {self.y}) - Shared: {self.isSharedCell}, Solved: {self.isSolved}, Letter: {self.letter}"
     
+
+#Grid represents the crossword grid, built with a 2D 15x15 array of CharCells.
+#Contains an array wordList, which is where the words added to the grid will be stored.     
 class Grid:
     def __init__(self):
         self.rows = 15
         self.columns = 15
         self.wordList = []
+        self.isSolved = False
         self.grid = [[CharCell(x, y) for y in range(self.columns)] for x in range(self.rows)]
 
     def addWord(self, word):
@@ -45,6 +52,8 @@ class Grid:
             grid_str += row_str + "\n"
         return grid_str
 
+#Word represents a place on the grid where a word should be placed given solutions
+#Given start and end co-ordinates, an associated clue, boolean isSolved and a solution
 class Word:
     def __init__(self, start_x, start_y, end_x, end_y, clue, grid, isSolved=False, solution=None, word_name=None):
         self.start_x = start_x

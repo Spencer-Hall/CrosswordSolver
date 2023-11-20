@@ -49,7 +49,7 @@ class CluesWidget(QWidget):
     def solvePuzzle(self):
         print("SOLUTIONS")
         solver = Solver(self.grid)
-        solver.solve(self.grid)
+        solver.solve(self.grid, 0)
         print(self.grid)
         
 
