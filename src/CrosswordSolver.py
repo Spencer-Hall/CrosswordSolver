@@ -10,9 +10,10 @@ from SolvingAlgorithm import *
 import sys
 
 class CluesWidget(QWidget):
-    def __init__(self, grid):
+    def __init__(self, grid, display_grid):
         super().__init__()
         self.grid = grid
+        self.display_grid = display_grid
 
         layout = QVBoxLayout()
 
@@ -25,6 +26,7 @@ class CluesWidget(QWidget):
 
         self.text_edit = QTextEdit()
         self.text_edit.setReadOnly(True)  
+        
 
         self.solve_button = QPushButton("SOLVE")
         self.solve_button.clicked.connect(self.solvePuzzle)
@@ -50,7 +52,17 @@ class CluesWidget(QWidget):
         print("SOLUTIONS")
         solver = Solver(self.grid)
         solver.solve(self.grid, 0)
+        
+        for row in range(self.grid.rows):
+            for col in range(self.grid.columns):
+                cell = self.grid.get_cell(row, col)
+                if cell.isSolved:
+                    label = self.display_grid.cells[row][col]
+                    label.setText(cell.letter)
+                    label.setStyleSheet("border: 0.5px solid gray; padding: 0px; margin: 0px; background-color: white")
+
         print(self.grid)
+        
         
 
 
@@ -166,9 +178,6 @@ class CrosswordGrid(QWidget):
             
             
                        
-    
-
-
 class MainWindow(QMainWindow):
     
     def __init__(self, *args, **kwargs):
@@ -178,8 +187,25 @@ class MainWindow(QMainWindow):
         self.setFixedSize(1100,700)
 
         newGrid = Grid()
-        self.clues_widget = CluesWidget(newGrid)
-        self.grid = CrosswordGrid(15, 15, newGrid, self.clues_widget)
+        self.grid = CrosswordGrid(15, 15, newGrid, None)  # Pass None temporarily
+        self.clues_widget = CluesWidget(newGrid, self.grid)  # Now self.grid is defined
+
+        # Set the grid widget reference in clues_widget after it's created
+        self.grid.clues = self.clues_widget
+        
+
+        # Create a horizontal layout for the main window
+        main_layout = QHBoxLayout()
+        main_layout.addWidget(self.grid)
+        main_layout.addWidget(self.clues_widget)
+
+        self.clues_widget.setFixedWidth(350)
+
+        # Create a central widget for the main window and set the layout
+        central_widget = QWidget()
+        central_widget.setLayout(main_layout)
+        self.setCentralWidget(central_widget)
+
         
 
         # Create a horizontal layout for the main window

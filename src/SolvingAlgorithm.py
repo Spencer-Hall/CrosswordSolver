@@ -5,12 +5,13 @@ from english_words import get_english_words_set
 from py_thesaurus import Thesaurus
 import re
 
+from nltk.corpus import wordnet 
+
 class Solver:
 
     def __init__(self, grid):
         self.grid = grid
-        #self.dictionaryList = list(get_english_words_set(['web2'], lower=True))
-        self.dictionaryList = ["london", "paris", "munich", "madrid", "oslo", "manchester"]
+        self.solutionList = []
 
     def getCandidates(self, word):
         #return words with suitable length and common characters
@@ -19,7 +20,16 @@ class Solver:
             if word.word_cells[x].letter is not None:
                 commonCharacters[x] = word.word_cells[x].letter
 
-        correctLengthWords = [w for w in self.dictionaryList if len(w) == word.length]
+        #get synonyms
+        clue = word.clue
+        synonyms = []
+        for syn in wordnet.synsets(clue): 
+            for l in syn.lemmas(): 
+                synonyms.append(l.name()) 
+
+       
+
+        correctLengthWords = [w for w in synonyms if len(w) == word.length]
         candidates = []
 
         for potentialWord in correctLengthWords:

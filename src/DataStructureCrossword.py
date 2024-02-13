@@ -24,7 +24,7 @@ class CharCell:
         return False
     
     def __str__(self):
-        return f"({self.x}, {self.y}) - Shared: {self.isSharedCell}, Solved: {self.isSolved}, Letter: {self.letter}"
+        return f"({self.x}, {self.y}) Solved: {self.isSolved}, Letter: {self.letter}"
     
 
 #Grid represents the crossword grid, built with a 2D 15x15 array of CharCells.
@@ -97,23 +97,10 @@ class Word:
         return f"Word: {self.word_name}\nStart: ({self.start_x}, {self.start_y})\nEnd: ({self.end_x}, {self.end_y})\nClue: {self.clue}\nSolved: {self.isSolved}\nSolution: {self.solution}\nWord Cells: {self.word_cells}"
     
 
-# Example usage
-if __name__ == "__main__":
-    # Create a grid
-    crossword_grid = Grid()
 
-    #Assign a word to the grid
-    word1 = Word(2, 1, 2, 5, "Clue", crossword_grid)
-    word2 = Word(2, 1, 6, 1, "Clue", crossword_grid)
-    word3 = Word(4, 4, 7, 4, "Clue", crossword_grid)
-    word4 = Word(6, 1, 6, 7, "Clue", crossword_grid)
-    word5 = Word(8, 7, 8, 14, "Clue", crossword_grid)
-    word6 = Word(9, 3, 9, 7, "Clue", crossword_grid)
-    word7 = Word(8, 7, 14, 7, "Clue", crossword_grid)
-    word8 = Word(14, 1, 14, 6, "Clue", crossword_grid)
-    #word.solve("spoon")
+    
 
-    # Print the grid
-    print(crossword_grid)
+
+    
 
 
