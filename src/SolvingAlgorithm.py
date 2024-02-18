@@ -1,5 +1,10 @@
 # SolvingAlgorithm.py
 
+#Filter clue by removing stop words, give antonyms if required
+
+#Separate solver using chatgpt?
+#Seperate solver using generated dictionary?
+
 from DataStructureCrossword import *
 from english_words import get_english_words_set
 from py_thesaurus import Thesaurus
@@ -27,7 +32,7 @@ class Solver:
             for l in syn.lemmas(): 
                 synonyms.append(l.name()) 
 
-       
+    
 
         correctLengthWords = [w for w in synonyms if len(w) == word.length]
         candidates = []

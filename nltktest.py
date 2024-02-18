@@ -29,7 +29,7 @@ def generate_solutions(clue):
                 solutions.add(lemma.name().replace('_', ' '))
     return solutions
 
-# Assuming you already have the tokenise function from the previous code
-clue = "Opposite of up"
+
+clue = "up"
 potential_solutions = generate_solutions(clue)
 print(potential_solutions)

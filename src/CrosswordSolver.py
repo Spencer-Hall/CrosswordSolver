@@ -31,6 +31,9 @@ class CluesWidget(QWidget):
         self.solve_button = QPushButton("SOLVE")
         self.solve_button.clicked.connect(self.solvePuzzle)
 
+        #Add button to input pre-populated crosswords
+        #Add buttons for level of solution
+
 
         layout.addWidget(self.text_edit)
         layout.addWidget(self.solve_button)
