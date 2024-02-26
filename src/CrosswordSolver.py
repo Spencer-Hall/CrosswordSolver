@@ -32,11 +32,14 @@ class CluesWidget(QWidget):
         self.solve_button.clicked.connect(self.solvePuzzle)
 
         #Add button to input pre-populated crosswords
-        #Add buttons for level of solution
+
+        self.input_crossword_button = QPushButton("PRE-MADE CROSSWORD")
+        self.input_crossword_button.clicked.connect(self.inputCrossword)
 
 
         layout.addWidget(self.text_edit)
         layout.addWidget(self.solve_button)
+        layout.addWidget(self.input_crossword_button)
          
         self.setLayout(layout)
 
@@ -54,7 +57,7 @@ class CluesWidget(QWidget):
     def solvePuzzle(self):
         print("SOLUTIONS")
         solver = Solver(self.grid)
-        solver.solve(self.grid, 0)
+        solver.solve()
         
         for row in range(self.grid.rows):
             for col in range(self.grid.columns):
@@ -65,6 +68,34 @@ class CluesWidget(QWidget):
                     label.setStyleSheet("border: 0.5px solid gray; padding: 0px; margin: 0px; background-color: white")
 
         print(self.grid)
+
+    def inputCrossword(self):
+        #TODO: Add word to grid datastructure, add word to GUI, add clue to GUI
+        print("ADD CROSSWORD")
+        filename, _ = QFileDialog.getOpenFileName(self, "Open Crossword File", "", "Text Files (*.txt)")
+        if filename:
+            with open(filename, "r") as file:
+                for line in file:
+                    currentline = line.split(",")
+                    y1 = int(currentline[0])
+                    x1 = int(currentline[1])
+                    y2 = int(currentline[2])
+                    x2 = int(currentline[3])
+                    clue =  str(currentline[4])
+                    word = Word(y1,x1 ,y2 ,x2 ,clue , self.grid)
+
+                    if (x1 == x2 and y2 >= y1):
+                        orientation = 1 #down
+                    elif (y1 == y2 and x2 >= x1):
+                        orientation = 0 #across
+                    else:
+                        print("ERROR")
+                        exit
+                    
+                    self.addClue(clue, orientation)
+
+        self.solvePuzzle()
+
         
         
 

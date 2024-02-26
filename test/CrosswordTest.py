@@ -25,16 +25,16 @@ with open(file_path, "r") as file:
 
 
 
-print("Word List:")
+print("Clue List:")
 for word in crossword_grid.wordList:
-    print(word)
+    print(word.clue)
 
 
 
 #Solve crossword
 print("\nSolved Grid:")
 solver = Solver(crossword_grid)
-solver.solve(crossword_grid, 0)
+solver.solve()
 print(crossword_grid)
 
 
